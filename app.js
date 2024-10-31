@@ -115,7 +115,7 @@ app.get('/register', (req, res,next) => {
         </form>
     `);
 });
-app.get('/index', (req, res,next) => {
+app.get('/', (req, res,next) => {
     res.render('index');
 });
 
