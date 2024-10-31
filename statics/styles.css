@@ -1,0 +1,32 @@
+.video-call-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    border: 1px solid #000;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  .video-call-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
+  button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .answer {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  .decline {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
