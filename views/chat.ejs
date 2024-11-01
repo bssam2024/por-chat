@@ -152,8 +152,8 @@
                     localVideo.srcObject = stream;
                     let call = peer.call(id, stream);
                     call.on('stream', remoteStream => {
-                       // remoteVideo.srcObject = remoteStream;
-                       localVideo.srcObject =remoteStream; 
+                        remoteVideo.srcObject = remoteStream;
+                       //localVideo.srcObject =remoteStream; 
                     });
                 })
                 .catch(err => {
