@@ -10,16 +10,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/styles.css">
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
+      
         .container {
             display: flex;
             flex-direction: column;
@@ -65,16 +56,6 @@
 <body>
 
 
-
-
-
-
-  <div id="ng"></div>
-    <input type="text" value="<%=namemy%>" name="nam" id="nam">
-    <input type="text" value="<%=my_id%>" name="myid" id="myid">
-    <input type="text" value="<%=id%>" name="frid_id" id="idfrend">
-    <button onclick="insert()"> ارسال</button>
-    
  <div class="container">
         <div class="video">
             <video id="localVideo" autoplay muted></video>
@@ -85,6 +66,16 @@
             <button id="endCallBtn">إنهاء المكالمة</button>
         </div>
     </div>
+
+
+
+  <div id="ng"></div>
+    <input type="text" value="<%=namemy%>" name="nam" id="nam">
+    <input type="text" value="<%=my_id%>" name="myid" id="myid">
+    <input type="text" value="<%=id%>" name="frid_id" id="idfrend">
+    <button onclick="insert()"> ارسال</button>
+    
+
 
 <%if(resu.length>0){%>
 <% resu.forEach(resul=>{ %>
@@ -243,15 +234,12 @@ socket.on('reccadd', id => {
   navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 localVideo.srcObject = stream;
-
-                // الاستماع لرسالة 'reccadd' من socket
-                socket.on('reccadd', id => {
-                    console.log(id);
+             
                     let call = peer.call(id, stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                     });
-                });
+              
             })
             .catch(err => {
                 console.error('Error accessing media devices.', err);
@@ -296,14 +284,7 @@ socket.on('reccadd', id => {
       
     }); 
     */
- 
-    function displayMedia(stream) {
-      const videoElement = document.createElement('video');
-      videoElement.srcObject = stream; // استخدم srcObject بدلاً من src
-      videoElement.body.append(videoElement); // تأكد من تشغيل الفيديو تلقائيًا\
-      videoElement.play(); 
-     
-    }
+
  
     </script>
 </body>
