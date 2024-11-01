@@ -164,12 +164,11 @@
 
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
-function displayMedia(){
+
                     call.answer(stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                     });
-}
                 })
                 .catch(err => {
                     console.error('Error accessing media devices.', err);
