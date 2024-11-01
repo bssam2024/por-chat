@@ -101,7 +101,7 @@
         let idfrend = document.getElementById('idfrend').value;
         let localVideo = document.getElementById('localVideo');
         let remoteVideo = document.getElementById('remoteVideo');
-       
+       let r = document.getElementById('ng');
         socket.on('data', (data) => {
             const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
             table.innerHTML = '';
@@ -159,6 +159,7 @@
                 });
         });
 function displayMedia(){
+ r.style.display = 'none';
         peer.on('call', call => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
@@ -174,8 +175,6 @@ function displayMedia(){
 }
  socket.on('urls',(deta) => {
 
-      const r = document.getElementById('ng');
-
       r.innerHTML=`
         <div class="video-call-message" >
     <p>مكالمة فيديو واردة...</p>
@@ -187,7 +186,9 @@ function displayMedia(){
   </div>
 
       `;
-      
+      setTimeout(() => {
+           r.style.display = 'none';
+        }, 30000);
     }); 
 
     </script>
