@@ -165,7 +165,7 @@
 
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
- 
+     localVideo.srcObject = stream;
                     call.answer(stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
