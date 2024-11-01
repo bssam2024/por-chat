@@ -159,20 +159,23 @@
                     console.error('Error accessing media devices.', err);
                 });
         });
-     function displayMedia(call){
+     
         peer.on('call', call => {
+
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
+function displayMedia(){
                     call.answer(stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                     });
+}
                 })
                 .catch(err => {
                     console.error('Error accessing media devices.', err);
                 });
         });
-}
+
  socket.on('urls',(deta) => {
   
       r.innerHTML=`
@@ -180,7 +183,7 @@
     <p>مكالمة فيديو واردة...</p>
     <p>${deta.nam}</p>
     <div class="video-call-buttons">
-      <button class="answer" onclick="displayMedia(call)">رد</button>
+      <button class="answer" onclick="displayMedia()">رد</button>
       <button class="decline">رفض</button>
     </div>
   </div>
