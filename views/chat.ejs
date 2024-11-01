@@ -135,6 +135,7 @@
  
           };
             socket.emit('reqorst', myid);
+  socket.emit('reqorst', deta);
         }
 
         socket.on('getpeerid', () => {
@@ -158,8 +159,7 @@
                     console.error('Error accessing media devices.', err);
                 });
         });
-function displayMedia(){
- r.style.display = 'none';
+     function displayMedia(){
         peer.on('call', call => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
@@ -186,9 +186,10 @@ function displayMedia(){
   </div>
 
       `;
-      setTimeout(() => {
+    setTimeout(() => {
            r.style.display = 'none';
         }, 30000);
+
     }); 
 
     </script>
