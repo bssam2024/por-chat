@@ -233,7 +233,7 @@ socket.on('reccadd', id => {
   console.log(id);
   navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
-                localVideo.srcObject = stream;
+               localVideo.srcObject = stream;
              
                     let call = peer.call(id, stream);
                     call.on('stream', remoteStream => {
