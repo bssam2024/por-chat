@@ -118,6 +118,9 @@ app.get('/register', (req, res,next) => {
 app.get('/', (req, res,next) => {
     res.render('index');
 });
+app.get('/call', (req, res,next) => {
+    res.render('call');
+});
 
 // معالجة التسجيل
 app.post('/register', (req, res) => {
