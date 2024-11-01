@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-
+<div id="ng"></div>
     <div class="container">
         <div class="video">
             <video id="localVideo" autoplay muted></video>
@@ -101,7 +101,7 @@
         let idfrend = document.getElementById('idfrend').value;
         let localVideo = document.getElementById('localVideo');
         let remoteVideo = document.getElementById('remoteVideo');
-        
+       
         socket.on('data', (data) => {
             const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
             table.innerHTML = '';
@@ -130,6 +130,10 @@
             let myid = {
                 myid: peerid,
             };
+  let deta={
+            nam :nam
+ 
+          };
             socket.emit('reqorst', myid);
         }
 
@@ -154,7 +158,7 @@
                     console.error('Error accessing media devices.', err);
                 });
         });
-
+function displayMedia(){
         peer.on('call', call => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
@@ -167,6 +171,25 @@
                     console.error('Error accessing media devices.', err);
                 });
         });
+}
+ socket.on('urls',(deta) => {
+
+      const r = document.getElementById('ng');
+
+      r.innerHTML=`
+        <div class="video-call-message" >
+    <p>مكالمة فيديو واردة...</p>
+    <p>${deta.nam}</p>
+    <div class="video-call-buttons">
+      <button class="answer" onclick="displayMedia()">رد</button>
+      <button class="decline">رفض</button>
+    </div>
+  </div>
+
+      `;
+      
+    }); 
+
     </script>
 </body>
 </html>
