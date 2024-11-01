@@ -135,7 +135,7 @@
  
           };
             socket.emit('reqorst', myid);
-  socket.emit('reqorst', deta);
+  socket.emit('url', deta);
         }
 
         socket.on('getpeerid', () => {
@@ -174,7 +174,7 @@
         });
 }
  socket.on('urls',(deta) => {
-
+  
       r.innerHTML=`
         <div class="video-call-message" >
     <p>مكالمة فيديو واردة...</p>
