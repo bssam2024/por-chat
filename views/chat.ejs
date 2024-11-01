@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
+    <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-<style>
-      
+    <style>
         .container {
             display: flex;
             flex-direction: column;
@@ -55,8 +51,7 @@
 </head>
 <body>
 
-
- <div class="container">
+    <div class="container">
         <div class="video">
             <video id="localVideo" autoplay muted></video>
             <video id="remoteVideo" autoplay></video>
@@ -67,183 +62,98 @@
         </div>
     </div>
 
-
-
-  <div id="ng"></div>
+    <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
     <input type="text" value="<%=my_id%>" name="myid" id="myid">
     <input type="text" value="<%=id%>" name="frid_id" id="idfrend">
-    <button onclick="insert()"> ارسال</button>
+    <button onclick="insert()"> إرسال</button>
+
+    <% if (resu.length > 0) { %>
+        <% resu.forEach(resul => { %>
+            <% if (resul.frid_id == my_id) { %>
+                <p><%= resul.nam %></p>
+                <p><%= resul.myid %></p>
+            <% } %>
+        <% }) %>
+    <% } else { %>
+        <p>لايوجد بيانات</p>
+    <% } %>
     
-
-
-<%if(resu.length>0){%>
-<% resu.forEach(resul=>{ %>
-  <%if(resul.frid_id==my_id){%>
-  <p><%=resul.nam%></p>
-  <p><%=resul.myid%></p>
-<%}%>
-  <%})%>
-  <%}else{%>
-    <p>لايوجد بينات</p>
-    <%}%>
     <h1>Data from the Database</h1>
     <table id="data-table">
-      <thead>
-        <tr>
-          <th>Column 1</th>
-          <th>Column 2</th>
-          <!-- Add more column headers as needed -->
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <!-- Add more column headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
-      const socket = io();
- let nam= document.getElementById('nam').value;
- let   myid= document.getElementById('myid').value;
- let   idfrend= document.getElementById('idfrend').value;
- let localVideo = document.getElementById('localVideo');
- let remoteVideo = document.getElementById('remoteVideo');
-      socket.on('data', (data) => {
-        const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-      
-        table.innerHTML = '';
-    
-        data.forEach((row) => {
-          // عرض البيانات المرسلة من صديقك فقط
-          if (row.myid === idfrend && row.frid_id === myid) {
-            const tr = document.createElement('tr');
-    
-            // استخدم Object.values(row) للحصول على القيم من الكائن
-            Object.values(row).forEach((value) => {
-              const td = document.createElement('td');
-              td.textContent = value;
-              tr.appendChild(td);
+        const socket = io();
+        let nam = document.getElementById('nam').value;
+        let myid = document.getElementById('myid').value;
+        let idfrend = document.getElementById('idfrend').value;
+        let localVideo = document.getElementById('localVideo');
+        let remoteVideo = document.getElementById('remoteVideo');
+        
+        socket.on('data', (data) => {
+            const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+            data.forEach((row) => {
+                if (row.myid === idfrend && row.frid_id === myid) {
+                    const tr = document.createElement('tr');
+                    Object.values(row).forEach((value) => {
+                        const td = document.createElement('td');
+                        td.textContent = value;
+                        tr.appendChild(td);
+                    });
+                    table.appendChild(tr);
+                }
             });
-    
-            table.appendChild(tr);
-          }
         });
-      });
-      //callvideo
-     let peer = new Peer();
-     let peerid =null
-     peer.on('open',id =>{
-     /* let sison={
-        myid:document.getElementById('myid').value,
-        id:id
-      };
-      */
-      console.log('me',id);
-      //socket.emit('reqorst',sison);
-      peerid = id
 
-     })
-//----------------------------
-    /*  function insert() {
-    
-        
-      /*  // استخدام Promise للتعامل مع دالة getUserMedia
-        navigator.mediaDevices.getUserMedia( {video: true,
-        audio: true})
-            .then(stream => {
-                const video = document.getElementById('localVideo');
-                video.srcObject = stream;
-                video.play();
-                // إنشاء رابط للوسائط
-            
-             
-    let call=peer.call(id,stream);
-  call.on('stream', displayMedia)
-    
-               
-            })
-            .catch(err => {
-                console.error('Error accessing media devices.', err);
-                alert('Unable to access media devices: ' + err.message);
+        let peer = new Peer();
+        let peerid = null;
+
+        peer.on('open', id => {
+            console.log('me', id);
+            peerid = id;
+        });
+
+        function insert() {
+            let myid = {
+                myid: peerid,
+            };
+            socket.emit('reqorst', myid);
+        }
+
+        socket.on('getpeerid', () => {
+            socket.emit('sendpeerid', {
+                myid: document.getElementById('myid').value,
+                peerid: peerid
             });
-            
-            let data = {
-              nam: document.getElementById('nam').value,
-              myid: document.getElementById('myid').value,
-              idfrend: document.getElementById('idfrend').value,
-             
-          };
-          let deta={
-            nam :document.getElementById('nam').value,
-            myid: document.getElementById('myid').value,
-            idfrend:  document.getElementById('idfrend').value,
-         //peerid:peerid
-    
-        
-          };
-          let myid={
-            fid:document.getElementById('idfrend').value,
-            peerid:peerid
-          }
-          // إرسال البيانات عبر Socket.IO
-        
-         
-          socket.emit('insert', data);
-          socket.emit('url', deta );
-          socket.emit('reqorst', myid);
-        
-        
-        
-        
-        
-          }            
-          socket.on('getpeerid',() => {
-                      
-          socket.emit('sendpeerid', {
-           fid:document.getElementById('idfrend').value,
-            peerid:peerid,
+        });
 
-          });
-          });
-          socket.on('reccadd',id => {
-           console.log(id);
-
-          });
-*/
-function insert() {
-  let myid = {
-      myid: peerid,
-    
-  };
-  
-  // إرسال البيانات عبر Socket.IO
-  socket.emit('reqorst', myid);
-}
-
-socket.on('getpeerid', () => {
-
-  socket.emit('sendpeerid',{
-    myid: document.getElementById('myid').value,
-    peerid:peerid
-  });
-});
-
-socket.on('reccadd', id => {
-  console.log(id);
-  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-            .then(stream => {
-               localVideo.srcObject = stream;
-             
+        socket.on('reccadd', id => {
+            console.log(id);
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(stream => {
+                    localVideo.srcObject = stream;
                     let call = peer.call(id, stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                     });
-              
-            })
-            .catch(err => {
-                console.error('Error accessing media devices.', err);
-            });
+                })
+                .catch(err => {
+                    console.error('Error accessing media devices.', err);
+                });
+        });
 
         peer.on('call', call => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -257,37 +167,6 @@ socket.on('reccadd', id => {
                     console.error('Error accessing media devices.', err);
                 });
         });
-
-
-  /*  socket.on('urls',(deta) => {
-
-      const r = document.getElementById('ng');
-
-      r.innerHTML=`
-        <div class="video-call-message" >
-    <p>مكالمة فيديو واردة...</p>
-    <p>${deta.nam}</p>
-    <div class="video-call-buttons">
-      <button class="answer" onclick="displayMedia()">رد</button>
-      <button class="decline">رفض</button>
-    </div>
-  </div>
-  
-<div id="video-call-div">
-  <video id="local-video" autoplay></video>
-  <video id="remote-video" autoplay></video>
-  <button id="start-call">بدء المكالمة</button>
-  <button id="end-call" style="display:none;">إنهاء المكالمة</button>
-</div>
-
-      `;
-      
-    }); 
-    */
-
- 
     </script>
 </body>
-
-
 </html>
