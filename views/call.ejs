@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكالمة فيديو</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .video-call {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: space-between;
+            height: 400px;
+        }
+
+        .video {
+            width: 48%;
+            background: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .video {
+                height: 300px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-call">
+        <div class="video-container">
+            <div class="video">
+                <video id="localVideo" autoplay muted></video>
+            </div>
+            <div class="video">
+                <video id="remoteVideo" autoplay></video>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="button" id="muteButton">كتم الصوت</button>
+            <button class="button" id="endCallButton">إنهاء المكالمة</button>
+        </div>
+    </div>
+
+    <script>
+        const muteButton = document.getElementById('muteButton');
+        const endCallButton = document.getElementById('endCallButton');
+
+        muteButton.addEventListener('click', () => {
+            alert('تم كتم الصوت');
+        });
+
+        endCallButton.addEventListener('click', () => {
+            alert('تم إنهاء المكالمة');
+            // هنا يمكنك إضافة كود لإنهاء المكالمة
+        });
+    </script>
+
+</body>
+</html>
