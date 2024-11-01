@@ -87,23 +87,19 @@
             <button class="button" id="endCallButton">إنهاء المكالمة</button>
         </div>
     </div>
-
+  <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
+        const socket = io();
+  
         const muteButton = document.getElementById('muteButton');
         const endCallButton = document.getElementById('endCallButton');
     let localVideo = document.getElementById('localVideo');
         let remoteVideo = document.getElementById('remoteVideo');
 
-     socket.emit('reqorst', myid);
-  socket.emit('url', deta);
-        }
 
-        socket.on('getpeerid', () => {
-            socket.emit('sendpeerid', {
-                myid: document.getElementById('myid').value,
-                peerid: peerid
-            });
-        });
+
+ 
 
         socket.on('reccadd', id => {
             console.log(id);
