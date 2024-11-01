@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
     });
     socket.on('url',(deta) => {
         console.log(deta); 
-        io.emit('urls',deta);
+       socket.broadcast.emit('urls',deta);
     });
     /*
     socket.on('reqorst', myid => {
