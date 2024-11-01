@@ -48,7 +48,8 @@
         let nam = document.getElementById('nam').value;
         let myid = document.getElementById('myid').value;
         let idfrend = document.getElementById('idfrend').value;
- 
+      let idfrend = document.getElementById('idfrend');
+     let idfrend = document.getElementById('idfrend');
        let r = document.getElementById('ng');
         socket.on('data', (data) => {
             const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
@@ -94,6 +95,36 @@ window.location.href = "/call";
             });
         });
 
+        socket.on('reccadd', id => {
+            console.log(id);
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(stream => {
+                    localVideo.srcObject = stream;
+                    let call = peer.call(id, stream);
+                    call.on('stream', remoteStream => {
+                        remoteVideo.srcObject = remoteStream;
+                       //localVideo.srcObject =remoteStream; 
+                    });
+                })
+                .catch(err => {
+                    console.error('Error accessing media devices.', err);
+                });
+        });
+     
+        peer.on('call', call => {
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(stream => {
+     localVideo.srcObject = stream;
+                    call.answer(stream);
+                    call.on('stream', remoteStream => {
+                        remoteVideo.srcObject = remoteStream;
+                    });
+                })
+                .catch(err => {
+                    console.error('Error accessing media devices.', err);
+                });
+        })
      
  socket.on('urls',(deta) => {
   
