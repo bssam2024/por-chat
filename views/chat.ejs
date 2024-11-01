@@ -6,61 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            width: 90%;
-            max-width: 800px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .video {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: black;
-            border-radius: 10px 10px 0 0;
-            overflow: hidden;
-        }
-        video {
-            width: 100%;
-            height: auto;
-        }
-        .controls {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px;
-            background: #eee;
-            border-radius: 0 0 10px 10px;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+   
 </head>
 <body>
-<div id="ng"></div>
-    <div class="container">
-        <div class="video">
-            <video id="localVideo" autoplay muted></video>
-            <video id="remoteVideo" autoplay></video>
-        </div>
-        <div class="controls">
-            <button id="muteBtn">كتم الصوت</button>
-            <button id="endCallBtn">إنهاء المكالمة</button>
-        </div>
-    </div>
+
 
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
@@ -99,8 +48,7 @@
         let nam = document.getElementById('nam').value;
         let myid = document.getElementById('myid').value;
         let idfrend = document.getElementById('idfrend').value;
-        let localVideo = document.getElementById('localVideo');
-        let remoteVideo = document.getElementById('remoteVideo');
+ 
        let r = document.getElementById('ng');
         socket.on('data', (data) => {
             const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
@@ -136,6 +84,7 @@
           };
             socket.emit('reqorst', myid);
   socket.emit('url', deta);
+window.location.href = "/call";
         }
 
         socket.on('getpeerid', () => {
@@ -145,37 +94,7 @@
             });
         });
 
-        socket.on('reccadd', id => {
-            console.log(id);
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then(stream => {
-                    localVideo.srcObject = stream;
-                    let call = peer.call(id, stream);
-                    call.on('stream', remoteStream => {
-                        remoteVideo.srcObject = remoteStream;
-                       //localVideo.srcObject =remoteStream; 
-                    });
-                })
-                .catch(err => {
-                    console.error('Error accessing media devices.', err);
-                });
-        });
      
-        peer.on('call', call => {
-
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then(stream => {
-     localVideo.srcObject = stream;
-                    call.answer(stream);
-                    call.on('stream', remoteStream => {
-                        remoteVideo.srcObject = remoteStream;
-                    });
-                })
-                .catch(err => {
-                    console.error('Error accessing media devices.', err);
-                });
-        });
-
  socket.on('urls',(deta) => {
   
       r.innerHTML=`
