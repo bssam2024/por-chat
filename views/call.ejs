@@ -91,7 +91,8 @@
     <script>
         const muteButton = document.getElementById('muteButton');
         const endCallButton = document.getElementById('endCallButton');
-
+    let localVideo = document.getElementById('localVideo');
+        let remoteVideo = document.getElementById('remoteVideo');
         muteButton.addEventListener('click', () => {
             alert('تم كتم الصوت');
         });
