@@ -6,10 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-   
+       <style>
+        .contt{
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display:none;
+        }
+        .video-container {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #000;
+        }
+        .video {
+            width: 45%;
+            height: auto;
+            background-color: #333;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            .video {
+                width: 90%;
+                margin: 10px 0;
+            }
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-
+<div class="contt">
+    <div class="video-container">
+        <div class="video" id="video1">فيديو الطرف الأول
+            <video id="localVideo" autoplay muted></video>
+        </div>
+        <div class="video" id="video2">فيديو الطرف الثاني
+            <video id="remoteVideo" autoplay></video>
+        </div>
+    </div>
+    <div class="controls">
+        <button class="button" id="muteButton">كتم الصوت</button>
+        <button class="button" id="endCallButton">إنهاء المكالمة</button>
+    </div>
+</div>
 
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
@@ -85,7 +148,8 @@
           };
             socket.emit('reqorst', myid);
   socket.emit('url', deta);
-window.location.href = "/call";
+//window.location.href = "/call";
+videoCall.style.display = 'block';
         }
 
         socket.on('getpeerid', () => {
@@ -145,6 +209,15 @@ window.location.href = "/call";
 
     }); 
 
+    document.getElementById('muteButton').addEventListener('click', function() {
+            // كود كتم الصوت أو تشغيله
+            this.textContent = this.textContent === 'كتم الصوت' ? 'تشغيل الصوت' : 'كتم الصوت';
+        });
+        
+        document.getElementById('endCallButton').addEventListener('click', function() {
+            // كود لإنهاء المكالمة
+            alert('تم إنهاء المكالمة');
+        });
     </script>
 </body>
 </html>
