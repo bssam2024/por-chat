@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-     <style>
+<style>
     body {
         margin: 0;
         display: flex;
@@ -18,18 +18,25 @@
     .video-container {
         flex: 1;
         display: flex;
-        justify-content: center; /* تعديلات هنا */
+        justify-content: center;
         align-items: center;
         background-color: #000;
     }
-    .video {
-        width: 50%; /* تعديل العرض ليكون 50% */
+    .local-video {
+        position: absolute; /* لجعل الفيديو العلوي عائم */
+        top: 10px; /* المسافة من الأعلى */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%; /* عرض الفيديو العلوي */
         height: auto;
         background-color: #333;
+        border-radius: 8px; /* زوايا مستديرة */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* ظل */
     }
-    #localVideo, #remoteVideo {
-        width: 100%; /* جعل الفيديوهات تأخذ العرض الكامل */
-        height:100%;
+    .remote-video {
+        width: 100%; /* عرض الفيديو الكامل */
+        height: 100%; /* ارتفاع الفيديو الكامل */
+        background-color: #333;
     }
     .controls {
         display: flex;
@@ -54,9 +61,14 @@
         .video-container {
             flex-direction: column; /* تغيير الاتجاه في الشاشات الصغيرة */
         }
-        .video {
-            width: 90%; /* تعديل العرض ليكون 90% في الشاشات الصغيرة */
-            margin: 10px 0;
+        .local-video {
+            width: 80%; /* تعديل العرض في الشاشات الصغيرة */
+            height: auto; /* ارتفاع تلقائي */
+            top: 10px; /* المسافة من الأعلى */
+        }
+        .remote-video {
+            width: 100%; /* عرض كامل للمستقبل */
+            height: 100%; /* ارتفاع كامل للمستقبل */
         }
         .controls {
             flex-direction: column;
