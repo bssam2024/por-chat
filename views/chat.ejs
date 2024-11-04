@@ -7,6 +7,9 @@
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
 <style>
+#meet-area{
+display: none;
+}
 #remoteVideo{
     top: 0;
     height: 100%;
@@ -63,7 +66,7 @@
 <body>
 
   
-<div class="meet-area">
+<div class="meet-area" id="meet-area">
         <!-- Remote Video Element-->
         <video id="remoteVideo"></video>
 
@@ -114,7 +117,7 @@
         let idfrend = document.getElementById('idfrend').value;
       let localVideo = document.getElementById('localVideo');
      let remoteVideo = document.getElementById('remoteVideo');
-  let contt = document.getElementById('contt');
+  let contt = document.getElementById('meet-area');
        let r = document.getElementById('ng');
         socket.on('data', (data) => {
             const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
