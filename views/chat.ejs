@@ -7,32 +7,15 @@
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
 <style>
-    body {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-    }
-    .video-container {
-        flex: 1;
-        display: flex;
-        justify-content: flex-start; /* لتحريك المتصل إلى اليسار */
-        align-items: center;
-        position: relative; /* لجعل العناصر تتداخل */
-        background-color: #000;
-    }
-    .local-video {
-      top: 60;
-    width: 300;
-    object-fit: cover;
-    height: 150;
-    z-index: 1;
-    right: 15;
-    background-color: #444444;
+#remoteVideo{
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background-color: lightgray;
     position: absolute;
-    }
+}
+
 #localVideo{
     top: 60;
     width: 300;
@@ -43,46 +26,17 @@
     background-color: #444444;
     position: absolute;
 }
-#remoteVideo{
- top: 0;
-    height: 100%;
-    width: 100%;
+.meet-controls-bar{
+    bottom: 0;
+    background-color: black;
     left: 0;
-    background-color: lightgray;
     position: absolute;
+    width: 100%;
 }
-    .remote-video {
-           top: 0;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    background-color: lightgray;
-    position: absolute;
-    }
-    .controls {
-        display: flex;
-        justify-content: center;
-        padding: 10px;
-        background-color: #fff;
-    }
-    .button {
-        margin: 0 10px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        background-color: #007bff;
-        color: white;
-    }
-    .button:hover {
-        background-color: #0056b3;
-    }
+    
     @media (max-width: 600px) {
-        .video-container {
-            flex-direction: column;
-        }
-        .local-video {
+     
+        .localVideo{
           top: 60;
     width: 300;
     object-fit: cover;
@@ -91,7 +45,7 @@
     right: 15;
     background-color: #444444;
         }
-        .remote-video {
+        .remoteVideo {
                top: 0;
     height: 100%;
     width: 100%;
@@ -108,17 +62,16 @@
 </head>
 <body>
 
-    <div class="video-container" id="contt">
-        <div class="local-video" id="video1">فيديو الطرف الأول
-            <video id="localVideo" autoplay muted></video>
+  
+<div class="meet-area">
+        <!-- Remote Video Element-->
+        <video id="remoteVideo"></video>
+
+        <!-- Local Video Element-->
+        <video id="localVideo"></video>
+        <div class="meet-controls-bar">
+            <button onclick="startScreenShare()">Screen Share</button>
         </div>
-        <div class="remote-video" id="video2">فيديو الطرف الثاني
-            <video id="remoteVideo" autoplay></video>
-        </div>
-    </div>
-    <div class="controls">
-        <button class="button" id="muteButton">كتم الصوت</button>
-        <button class="button" id="endCallButton">إنهاء المكالمة</button>
     </div>
 
 
