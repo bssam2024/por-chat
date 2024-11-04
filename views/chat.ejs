@@ -7,21 +7,23 @@
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
        <style>
-        .contt{
+        body{
             margin: 0;
             display: flex;
             flex-direction: column;
             height: 100vh;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-            display:none;
+           
         }
+
         .video-container {
             flex: 1;
             display: flex;
             justify-content: space-around;
             align-items: center;
             background-color: #000;
+ display:none;
         }
         .video {
             width: 45%;
@@ -59,8 +61,8 @@
     </style>
 </head>
 <body>
-<div class="contt" id="contt">
-    <div class="video-container">
+
+    <div class="video-container" id="contt">
         <div class="video" id="video1">فيديو الطرف الأول
             <video id="localVideo" autoplay muted></video>
         </div>
@@ -72,7 +74,7 @@
         <button class="button" id="muteButton">كتم الصوت</button>
         <button class="button" id="endCallButton">إنهاء المكالمة</button>
     </div>
-</div>
+
 
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
