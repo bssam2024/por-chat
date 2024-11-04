@@ -6,65 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-       <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+     <style>
+    body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+    .video-container {
+        flex: 1;
+        display: flex;
+        justify-content: center; /* تعديلات هنا */
+        align-items: center;
+        background-color: #000;
+    }
+    .video {
+        width: 50%; /* تعديل العرض ليكون 50% */
+        height: auto;
+        background-color: #333;
+    }
+    #localVideo, #remoteVideo {
+        width: 100%; /* جعل الفيديوهات تأخذ العرض الكامل */
+        height: auto;
+    }
+    .controls {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        background-color: #fff;
+    }
+    .button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+    @media (max-width: 600px) {
         .video-container {
-            flex: 1;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background-color: #000;
-            display: none; /* Initially hidden */
+            flex-direction: column; /* تغيير الاتجاه في الشاشات الصغيرة */
         }
         .video {
-            width: 45%;
-            height: auto;
-            background-color: #333;
+            width: 90%; /* تعديل العرض ليكون 90% في الشاشات الصغيرة */
+            margin: 10px 0;
         }
-#localVideo{
- width: 45%;
-            height: auto;
-}
-#remoteVideo{
- width: 45%;
-            height: auto;
-}
         .controls {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            background-color: #fff;
+            flex-direction: column;
         }
-        .button {
-            margin: 0 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        @media (max-width: 600px) {
-            .video {
-                width: 90%;
-                margin: 10px 0;
-            }
-            .controls {
-                flex-direction: column;
-            }
-        }
-   </style>
+    }
+</style>
 </head>
 <body>
 
