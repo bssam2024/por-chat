@@ -20,6 +20,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative; /* لجعل العناصر تتداخل */
         background-color: #000;
     }
     .local-video {
@@ -29,9 +30,10 @@
         transform: translateX(-50%);
         width: 40%; /* عرض الفيديو العلوي */
         height: auto;
-        background-color: #333;
+        background-color: rgba(51, 51, 51, 0.8); /* لون معتم */
         border-radius: 8px; /* زوايا مستديرة */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* ظل */
+        border: 2px solid white; /* إطار أبيض */
     }
     .remote-video {
         width: 100%; /* عرض الفيديو الكامل */
@@ -79,10 +81,10 @@
 <body>
 
     <div class="video-container" id="contt">
-        <div class="video" id="video1">فيديو الطرف الأول
+        <div class="local-video" id="video1">فيديو الطرف الأول
             <video id="localVideo" autoplay muted></video>
         </div>
-        <div class="video" id="video2">فيديو الطرف الثاني
+        <div class="remote-video" id="video2">فيديو الطرف الثاني
             <video id="remoteVideo" autoplay></video>
         </div>
     </div>
