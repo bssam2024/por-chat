@@ -40,6 +40,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
+  let nam = document.getElementById('nam').value;
+let myid = document.getElementById('myid').value;
+let idfrend = document.getElementById('idfrend').value;
         const socket = io();
         let peer = new Peer();
         let peerid = null;
