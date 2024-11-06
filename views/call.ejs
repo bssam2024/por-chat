@@ -3,112 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكالمة فيديو</title>
+    <title>واجهة اتصال فيديو</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #f0f0f0;
         }
-
-        .video-call {
-            position: relative;
-            width: 100%;
+        .container {
+            text-align: center;
+        }
+        .video-call-container {
+            display: none; /* مخفي في البداية */
+            width: 90%;
             max-width: 800px;
-            background: #000;
+            background: white;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            flex-direction: column;
+            margin: 20px auto;
         }
-
-        .video-container {
-            display: flex;
-            justify-content: space-between;
-            height: 400px;
-        }
-
         .video {
-            width: 48%;
-            background: #444;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 20px;
-            border: 2px solid #fff;
-            border-radius: 5px;
+            height: 400px;
+            position: relative;
+            background: #000;
         }
-
+        .local-video, .remote-video {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .local-video {
+            border: 2px solid white;
+            border-radius: 10px;
+            width: 150px;
+            height: 200px;
+            right: 10px;
+            bottom: 10px;
+            z-index: 2;
+        }
+        .remote-video {
+            z-index: 1;
+        }
         .controls {
             display: flex;
             justify-content: space-around;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #ddd;
         }
-
         .button {
-            background: #007bff;
-            color: white;
+            width: 60px;
+            height: 60px;
             border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            border-radius: 50%; /* دائري */
             cursor: pointer;
             transition: background 0.3s;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-
+        #mute-button {
+            background-color: #007bff; /* لون كتم الصوت */
+        }
+        #end-call-button {
+            background-color: #dc3545; /* لون إنهاء المكالمة */
+        }
+        #video-button {
+            background-color: #28a745; /* لون إيقاف الفيديو */
+        }
         .button:hover {
-            background: #0056b3;
+            opacity: 0.8; /* تأثير عند التمرير */
         }
-
+        #start-call {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            margin: 20px;
+        }
+        #start-call:hover {
+            background-color: #218838;
+        }
         @media (max-width: 600px) {
             .video {
-                height: 300px;
-                font-size: 18px;
+                height: 250px;
+            }
+            .local-video {
+                width: 100px;
+                height: 150px;
+                right: 5px;
+                bottom: 5px;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="video-call">
-        <div class="video-container">
+    <div class="container">
+        <button id="start-call">اتصال</button>
+        <div class="video-call-container" id="video-call-container">
             <div class="video">
-                <video id="localVideo" autoplay muted></video>
+                <video class="remote-video" id="remote-video" autoplay muted></video>
+                <video class="local-video" id="local-video" autoplay></video>
             </div>
-            <div class="video">
-                <video id="remoteVideo" autoplay></video>
+            <div class="controls">
+                <button class="button" id="mute-button">🔇</button> <!-- رمز كتم الصوت -->
+                <button class="button" id="end-call-button">🚫</button> <!-- رمز إنهاء المكالمة -->
+                <button class="button" id="video-button">📷</button> <!-- رمز فيديو -->
             </div>
-        </div>
-        <div class="controls">
-            <button class="button" id="muteButton">كتم الصوت</button>
-            <button class="button" id="endCallButton">إنهاء المكالمة</button>
         </div>
     </div>
 
     <script>
-     
-  
-        const muteButton = document.getElementById('muteButton');
-        const endCallButton = document.getElementById('endCallButton');
-  
+        const localVideo = document.getElementById('local-video');
+        const remoteVideo = document.getElementById('remote-video');
+        const videoCallContainer = document.getElementById('video-call-container');
+        const startCallButton = document.getElementById('start-call');
+        const muteButton = document.getElementById('mute-button');
+        const endCallButton = document.getElementById('end-call-button');
+        const videoButton = document.getElementById('video-button');
 
-
-
-
+        let localStream;
+        let isMuted = false;
+        let isVideoStopped = false;
 
 
         muteButton.addEventListener('click', () => {
-            alert('تم كتم الصوت');
+            isMuted = !isMuted;
+            localStream.getAudioTracks()[0].enabled = !isMuted; // كتم الصوت
+            muteButton.innerHTML = isMuted ? "🔊" : "🔇"; // تغيير الرمز
         });
 
         endCallButton.addEventListener('click', () => {
-            alert('تم إنهاء المكالمة');
-            // هنا يمكنك إضافة كود لإنهاء المكالمة
+            localStream.getTracks().forEach(track => track.stop()); // إيقاف جميع المسارات
+            videoCallContainer.style.display = 'none'; // إخفاء واجهة المكالمة
+        });
+
+        videoButton.addEventListener('click', () => {
+            isVideoStopped = !isVideoStopped;
+            localStream.getVideoTracks()[0].enabled = !isVideoStopped; // إيقاف الفيديو
+            videoButton.innerHTML = isVideoStopped ? "📹" : "📷"; // تغيير الرمز
         });
     </script>
-
 </body>
 </html>
