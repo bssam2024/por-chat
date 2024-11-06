@@ -45,9 +45,10 @@ io.on('connection', (socket) => {
         });
       
     });
-    socket.on('url',(deta) => {
-        console.log(deta); 
-       socket.broadcast.emit('urls',deta);
+   socket.on('url', (deta) => {
+        console.log(deta);
+        // إرسال إشعار لكافة المستخدمين الآخرين بالمكالمة الواردة
+        socket.broadcast.emit('urls', deta);
     });
     /*
     socket.on('reqorst', myid => {
@@ -66,14 +67,15 @@ io.on('connection', (socket) => {
     });
     */
 
-    socket.on('reqorst', myid => {
-        console.log('bb',myid.myid);
-        // يجب التأكد من أن الجلسة (session) أو الغرفة (room) قد تم إنشاؤها
+     socket.on('reqorst', myid => {
+        console.log('Requested peer ID for: ', myid.myid);
+        // إرسال حدث 'getpeerid' إلى جميع المستخدمين
         socket.broadcast.emit('getpeerid');
     });
     
-    socket.on('sendpeerid', data1 => {
-        console.log(data1.peerid);
+  socket.on('sendpeerid', data1 => {
+        console.log('Received peer ID: ', data1.peerid);
+        // إرسال معرف الند إلى كافة المستخدمين
         socket.broadcast.emit('reccadd', data1.peerid);
     });
     db.query('SELECT  *FROM  video ', (err, resu) => {
