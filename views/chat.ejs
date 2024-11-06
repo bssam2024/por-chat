@@ -31,7 +31,6 @@
             <tr>
                 <th>Column 1</th>
                 <th>Column 2</th>
-                <!-- Add more column headers as needed -->
             </tr>
         </thead>
         <tbody>
@@ -59,6 +58,8 @@
             };
             socket.emit('reqorst', myid);
             socket.emit('url', deta);
+            // إرسال إشعار للمستقبل
+            socket.emit('callNotification', { to: document.getElementById('idfrend').value, from: peerid, name: deta.nam });
         }
 
         socket.on('getpeerid', () => {
@@ -81,17 +82,15 @@
                     <p>مكالمة فيديو واردة...</p>
                     <p>${deta.nam}</p>
                     <div class="video-call-buttons">
-                        <button class="answer" onclick="displayMedia()">رد</button>
+                        <button class="answer" onclick="displayMedia('${deta.from}')">رد</button>
                         <button class="decline">رفض</button>
                     </div>
                 </div>
             `;
-            setTimeout(() => {
-                document.getElementById('ng').style.display = 'none';
-            }, 30000);
         });
 
-        function displayMedia() {
+        function displayMedia(friendId) {
+            sessionStorage.setItem('FRpeerId', friendId);
             window.location.href = "/call";
         }
     </script>
