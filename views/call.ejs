@@ -18,7 +18,7 @@
             text-align: center;
         }
         .video-call-container {
-            display: flex; /* تغيير إلى flex */
+            display: flex;
             flex-direction: column;
             width: 90%;
             max-width: 800px;
@@ -50,7 +50,7 @@
             z-index: 2;
         }
         .remote-video {
-  width: 100%;
+            width: 100%;
             height: 100%;
             z-index: 1;
         }
@@ -114,11 +114,10 @@
         const endCallButton = document.getElementById('end-call-button');
         const videoButton = document.getElementById('video-button');
 
-        
         const myid = sessionStorage.getItem('MYpeerId');
-        const friendid =sessionStorage.getItem('FRpeerId');
-console.log(myid);
-console.log(friendid);
+        const friendid = sessionStorage.getItem('FRpeerId');
+        console.log(myid);
+        console.log(friendid);
 
         let localStream;
         let isMuted = false;
@@ -130,9 +129,8 @@ console.log(friendid);
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 localVideo.srcObject = stream;
-               localStream=stream;
+                localStream = stream;
 
-                // إجراء الاتصال بالصديق
                 const call = peer.call(friendid, stream);
                 call.on('stream', remoteStream => {
                     remoteVideo.srcObject = remoteStream;
@@ -164,16 +162,4 @@ console.log(friendid);
 
         endCallButton.addEventListener('click', () => {
            sessionStorage.removeItem('MYpeerId');
-  sessionStorage.removeItem('FRpeerId');
-            videoCallContainer.style.display = 'none';
-            window.location.href = "/"; // العودة إلى صفحة الدردشة
-        });
-
-        videoButton.addEventListener('click', () => {
-            isVideoStopped = !isVideoStopped;
-            localStream.getVideoTracks()[0].enabled = !isVideoStopped;
-            videoButton.innerHTML = isVideoStopped ? "📹" : "📷";
-        });
-    </script>
-</body>
-</html>
+           sessionStorage.removeItem('FRpeerId[_{{{CITATION{{{_1{](https://github.com/edsonlipa/sistema-de-geolocalizacion/tree/3ed7c5e0d675034ec6139c1e518778b0f33153f0/Views%2Fusuario_estandar.php)[_{{{CITATION{{{_2{](https://github.com/YangChaorix/chuanxi/tree/dee4164d687f4ad0ae87bf95affbcc31b434e85d/runtime%2Ftemp%2Fa66ec466c82dab4392f7a8420734d4f9.php)[_{{{CITATION{{{_3{](https://github.com/fnhego/completecargo/tree/0db67fbda67bdc239b463e233e12ea17d1ea1ffe/alter3%2Fpreguntas.php)
