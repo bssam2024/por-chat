@@ -45,10 +45,10 @@ io.on('connection', (socket) => {
         });
       
     });
-   socket.on('url', (deta) => {
-        console.log(deta);
-        // إرسال إشعار لكافة المستخدمين الآخرين بالمكالمة الواردة
-        socket.broadcast.emit('urls', deta);
+   socket.on('callNotification', (data) => {
+        console.log(`Calling ${data.to} from ${data.from}`);
+        // إرسال إشعار للمستخدم المستقبل
+        socket.to(data.to).emit('urls', { nam: data.name, from: data.from });
     });
     /*
     socket.on('reqorst', myid => {
