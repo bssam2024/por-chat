@@ -115,13 +115,14 @@
         
         //const myid = sessionStorage.getItem('MYpeerId');
         const friendid =sessionStorage.getItem('FRpeerId');
+console.log(myid);
 console.log(friendid);
-//console.log(myid);
+
         let localStream;
         let isMuted = false;
         let isVideoStopped = false;
 
-        const peer = new Peer(friendid);
+        const peer = new Peer(myid);
 
         // الحصول على وسائط المستخدم
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
