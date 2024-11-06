@@ -131,10 +131,15 @@
         const localVideo = document.getElementById('local-video');
         const remoteVideo = document.getElementById('remote-video');
         const videoCallContainer = document.getElementById('video-call-container');
-        const startCallButton = document.getElementById('start-call');
+
         const muteButton = document.getElementById('mute-button');
         const endCallButton = document.getElementById('end-call-button');
         const videoButton = document.getElementById('video-button');
+
+        const params = new URLSearchParams(window.location.search);
+        const myid = params.get('myid');
+        const friendid = params.get('friendid');
+
 
         let localStream;
         let isMuted = false;
