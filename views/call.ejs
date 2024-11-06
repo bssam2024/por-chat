@@ -120,14 +120,14 @@
         let isMuted = false;
         let isVideoStopped = false;
 
-       
+        const peer = new Peer(myid);
 
         // الحصول على وسائط المستخدم
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 localVideo.srcObject = stream;
                 localStream = stream;
- const peer = new Peer(myid);
+
                 // إجراء الاتصال بالصديق
                 const call = peer.call(friendid, stream);
                 call.on('stream', remoteStream => {
