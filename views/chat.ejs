@@ -6,76 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-<style>
-#meet-area{
-display: none;
-}
-#remoteVideo{
-    top: 0;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    background-color: lightgray;
-    position: absolute;
-}
 
-#localVideo{
-    top: 60;
-    width: 300;
-    object-fit: cover;
-    height: 150;
-    z-index: 1;
-    right: 15;
-    background-color: #444444;
-    position: absolute;
-}
-.meet-controls-bar{
-    bottom: 0;
-    background-color: black;
-    left: 0;
-    position: absolute;
-    width: 100%;
-}
-    
-    @media (max-width: 600px) {
-     
-        .localVideo{
-          top: 60;
-    width: 300;
-    object-fit: cover;
-    height: 150;
-    z-index: 1;
-    right: 15;
-    background-color: #444444;
-        }
-        .remoteVideo {
-               top: 0;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    background-color: lightgray;
-    position: absolute;
-}
-        }
-        .controls {
-            flex-direction: column;
-        }
-    }
-</style>
 </head>
 <body>
 
   
-<div class="meet-area" id="meet-area">
-        <!-- Remote Video Element-->
-        <video id="remoteVideo"></video>
 
-        <!-- Local Video Element-->
-        <video id="localVideo"></video>
-        <div class="meet-controls-bar">
-            <button onclick="startScreenShare()">Screen Share</button>
-        </div>
-    </div>
 
 
     <div id="ng"></div>
@@ -153,8 +89,7 @@ display: none;
           };
             socket.emit('reqorst', myid);
   socket.emit('url', deta);
-//window.location.href = "/call";
-contt.style.display = 'block';
+
         }
 
         socket.on('getpeerid', () => {
@@ -166,6 +101,7 @@ contt.style.display = 'block';
 
         socket.on('reccadd', id => {
             console.log(id);
+  window.location.href = "/call?myid=" + peer.id + "&friendid=" + id;
            
         })
      
@@ -188,15 +124,7 @@ contt.style.display = 'block';
 
     }); 
 
-    document.getElementById('muteButton').addEventListener('click', function() {
-            // كود كتم الصوت أو تشغيله
-            this.textContent = this.textContent === 'كتم الصوت' ? 'تشغيل الصوت' : 'كتم الصوت';
-        });
-        
-        document.getElementById('endCallButton').addEventListener('click', function() {
-            // كود لإنهاء المكالمة
-            alert('تم إنهاء المكالمة');
-        });
+  
     </script>
 </body>
 </html>
