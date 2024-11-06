@@ -16,17 +16,16 @@
         }
         .container {
             text-align: center;
-        }
-        .video-call-container {
-            display: flex;
-            flex-direction: column;
             width: 90%;
             max-width: 800px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            margin: 20px auto;
+        }
+        .video-call-container {
+            display: flex;
+            flex-direction: column;
         }
         .video {
             height: 400px;
@@ -50,7 +49,6 @@
             z-index: 2;
         }
         .remote-video {
-    
             z-index: 1;
         }
         .controls {
@@ -90,6 +88,7 @@
 </head>
 <body>
     <div class="container">
+        <h1>مكالمة فيديو</h1>
         <div class="video-call-container" id="video-call-container">
             <div class="video">
                 <video class="remote-video" id="remote-video" autoplay muted></video>
@@ -107,24 +106,17 @@
     <script>
         const localVideo = document.getElementById('local-video');
         const remoteVideo = document.getElementById('remote-video');
-        const videoCallContainer = document.getElementById('video-call-container');
-
         const muteButton = document.getElementById('mute-button');
         const endCallButton = document.getElementById('end-call-button');
         const videoButton = document.getElementById('video-button');
 
         let myid = sessionStorage.getItem('MYpeerId');
         let friendid = sessionStorage.getItem('FRpeerId');
-        console.log(myid);
-        console.log(friendid);
-
         let localStream;
         let isMuted = false;
-        let isVideoStopped = false;
 
         const peer = new Peer(myid);
 
-        // الحصول على وسائط المستخدم
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 localVideo.srcObject = stream;
@@ -160,6 +152,10 @@
         });
 
         endCallButton.addEventListener('click', () => {
-           sessionStorage.removeItem('MYpeerId');
-           sessionStorage.removeItem('FRpeerId);
-  });
+            sessionStorage.removeItem('MYpeerId');
+            sessionStorage.removeItem('FRpeerId');
+            window.location.href = "/"; // العودة إلى الصفحة الرئيسية أو أي صفحة أخرى
+        });
+    </script>
+</body>
+</html>
