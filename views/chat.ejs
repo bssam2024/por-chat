@@ -57,7 +57,7 @@
                 nam: document.getElementById('nam').value
             };
             socket.emit('reqorst', myid);
-            socket.emit('url', deta);
+         
             // إرسال إشعار للمستقبل
             socket.emit('callNotification', { to: document.getElementById('idfrend').value, from: peerid, name: deta.nam });
         }
@@ -91,7 +91,7 @@
 
         function displayMedia(friendId) {
             sessionStorage.setItem('FRpeerId', friendId);
-         sessionStorage.setItem('MYpeerId', friendId);
+         sessionStorage.setItem('MYpeerId', peerid);
             window.location.href = "/call";
         }
     </script>
