@@ -76,7 +76,8 @@
 
         peer.on('open', id => {
             console.log('me', id);
-            peerid = sessionStorage.setItem('MYpeerId', id);
+            //peerid = sessionStorage.setItem('MYpeerId', id);
+ peerid =id;
         });
 
         function insert() {
