@@ -76,7 +76,7 @@
 
         peer.on('open', id => {
             console.log('me', id);
-            //peerid = sessionStorage.setItem('MYpeerId', id);
+           
  peerid =id;
         });
 
@@ -103,6 +103,7 @@
         socket.on('reccadd', id => {
             console.log(id);
  sessionStorage.setItem('FRpeerId', id);
+ sessionStorage.setItem('MYpeerId',peerid);
   window.location.href = "/call";
         
         })
