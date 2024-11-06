@@ -126,7 +126,7 @@
             </div>
         </div>
     </div>
-
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
         const localVideo = document.getElementById('local-video');
         const remoteVideo = document.getElementById('remote-video');
@@ -148,7 +148,8 @@
  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
                     localVideo.srcObject = stream;
-                    let call = peer.call(id, stream);
+ const peer = new Peer(myid);
+                    let call = peer.call(friendid, stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                        //localVideo.srcObject =remoteStream; 
