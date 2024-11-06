@@ -130,8 +130,8 @@
 
                 // إجراء الاتصال بالصديق
                 const call = peer.call(friendid, stream);
-                call.on('stream', remoteStream => {
-                    remoteVideo.srcObject = remoteStream;
+                call.on('stream', localStream => {
+                    remoteVideo.srcObject = localStream;
                 });
             })
             .catch(err => {
@@ -143,8 +143,8 @@
                 .then(stream => {
                     localVideo.srcObject = stream;
                     call.answer(stream);
-                    call.on('stream', remoteStream => {
-                        remoteVideo.srcObject = remoteStream;
+                    call.on('stream', localStream => {
+                        remoteVideo.srcObject = localStream;
                     });
                 })
                 .catch(err => {
