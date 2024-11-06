@@ -101,8 +101,8 @@
 
         socket.on('reccadd', id => {
             console.log(id);
-  window.location.href = "/call?myid=" + peerid + "&friendid=" + id;
-           
+  window.location.href = "/call?myid=" + peerid;
+         displayMedia(id)  
         })
      
  socket.on('urls',(deta) => {
@@ -112,7 +112,7 @@
     <p>مكالمة فيديو واردة...</p>
     <p>${deta.nam}</p>
     <div class="video-call-buttons">
-      <button class="answer" onclick="displayMedia()">رد</button>
+      <button class="answer" onclick="displayMedia(id)">رد</button>
       <button class="decline">رفض</button>
     </div>
   </div>
@@ -123,8 +123,8 @@
         }, 30000);
 
     }); 
-function displayMedia() {
-   window.location.href ="/call";
+function displayMedia(id) {
+   window.location.href ="/call?friendid=" + id;
 }
   
     </script>
