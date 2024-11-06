@@ -113,7 +113,7 @@
         const videoButton = document.getElementById('video-button');
 
         
-        const myid = sessionStorage.getItem('MYpeerId');
+        //const myid = sessionStorage.getItem('MYpeerId');
         const friendid =sessionStorage.getItem('FRpeerId');
 console.log(friendid);
 console.log(myid);
@@ -121,7 +121,7 @@ console.log(myid);
         let isMuted = false;
         let isVideoStopped = false;
 
-        const peer = new Peer(myid);
+        const peer = new Peer(friendid);
 
         // الحصول على وسائط المستخدم
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
