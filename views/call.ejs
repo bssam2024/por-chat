@@ -112,9 +112,9 @@
         const endCallButton = document.getElementById('end-call-button');
         const videoButton = document.getElementById('video-button');
 
-        const params = new URLSearchParams(window.location.search);
-        const myid = params.get('myid');
-        const friendid = params.get('friendid');
+        
+        const myid = sessionStorage.getItem('MYpeerId');
+        const friendid =sessionStorage.getItem('FRpeerId');
 console.log(friendid);
 console.log(myid);
         let localStream;
@@ -160,7 +160,8 @@ console.log(myid);
         });
 
         endCallButton.addEventListener('click', () => {
-            localStream.getTracks().forEach(track => track.stop());
+           sessionStorage.removeItem('MYpeerId');
+  sessionStorage.removeItem('FRpeerId');
             videoCallContainer.style.display = 'none';
             window.location.href = "/"; // العودة إلى صفحة الدردشة
         });
