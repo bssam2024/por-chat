@@ -76,7 +76,7 @@
 
         peer.on('open', id => {
             console.log('me', id);
-            peerid = id;
+            peerid = sessionStorage.setItem('MYpeerId', id);
         });
 
         function insert() {
@@ -101,7 +101,8 @@
 
         socket.on('reccadd', id => {
             console.log(id);
-  window.location.href = "/call?myid=" + peer.id+"&friendid=" + id;
+ sessionStorage.setItem('FRpeerId', id);
+  window.location.href = "/call";
         
         })
      
