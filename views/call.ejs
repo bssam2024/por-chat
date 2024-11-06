@@ -18,14 +18,14 @@
             text-align: center;
         }
         .video-call-container {
-            display: none; /* مخفي في البداية */
+            display: flex; /* تغيير إلى flex */
+            flex-direction: column;
             width: 90%;
             max-width: 800px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            flex-direction: column;
             margin: 20px auto;
         }
         .video {
@@ -63,7 +63,7 @@
             width: 60px;
             height: 60px;
             border: none;
-            border-radius: 50%; /* دائري */
+            border-radius: 50%;
             cursor: pointer;
             transition: background 0.3s;
             color: white;
@@ -74,59 +74,35 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         #mute-button {
-            background-color: #007bff; /* لون كتم الصوت */
+            background-color: #007bff;
         }
         #end-call-button {
-            background-color: #dc3545; /* لون إنهاء المكالمة */
+            background-color: #dc3545;
         }
         #video-button {
-            background-color: #28a745; /* لون إيقاف الفيديو */
+            background-color: #28a745;
         }
         .button:hover {
-            opacity: 0.8; /* تأثير عند التمرير */
-        }
-        #start-call {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #28a745;
-            color: white;
-            font-size: 18px;
-            margin: 20px;
-        }
-        #start-call:hover {
-            background-color: #218838;
-        }
-        @media (max-width: 600px) {
-            .video {
-                height: 250px;
-            }
-            .local-video {
-                width: 100px;
-                height: 150px;
-                right: 5px;
-                bottom: 5px;
-            }
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
     <div class="container">
-     
         <div class="video-call-container" id="video-call-container">
             <div class="video">
                 <video class="remote-video" id="remote-video" autoplay muted></video>
                 <video class="local-video" id="local-video" autoplay></video>
             </div>
             <div class="controls">
-                <button class="button" id="mute-button">🔇</button> <!-- رمز كتم الصوت -->
-                <button class="button" id="end-call-button">🚫</button> <!-- رمز إنهاء المكالمة -->
-                <button class="button" id="video-button">📷</button> <!-- رمز فيديو -->
+                <button class="button" id="mute-button">🔇</button>
+                <button class="button" id="end-call-button">🚫</button>
+                <button class="button" id="video-button">📷</button>
             </div>
         </div>
     </div>
-  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
         const localVideo = document.getElementById('local-video');
         const remoteVideo = document.getElementById('remote-video');
@@ -140,31 +116,32 @@
         const myid = params.get('myid');
         const friendid = params.get('friendid');
 
-
         let localStream;
         let isMuted = false;
         let isVideoStopped = false;
 
- navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then(stream => {
-                    localVideo.srcObject = stream;
- const peer = new Peer(myid);
-                    let call = peer.call(friendid, stream);
-                    call.on('stream', remoteStream => {
-                        remoteVideo.srcObject = remoteStream;
-                       //localVideo.srcObject =remoteStream; 
-                    });
-                })
-                .catch(err => {
-                    console.error('Error accessing media devices.', err);
-                });
-     
-     
-        peer.on('call', call => {
+       
 
+        // الحصول على وسائط المستخدم
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                localVideo.srcObject = stream;
+                localStream = stream;
+ const peer = new Peer(myid);
+                // إجراء الاتصال بالصديق
+                const call = peer.call(friendid, stream);
+                call.on('stream', remoteStream => {
+                    remoteVideo.srcObject = remoteStream;
+                });
+            })
+            .catch(err => {
+                console.error('Error accessing media devices.', err);
+            });
+
+        peer.on('call', call => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(stream => {
-     localVideo.srcObject = stream;
+                    localVideo.srcObject = stream;
                     call.answer(stream);
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
@@ -173,24 +150,24 @@
                 .catch(err => {
                     console.error('Error accessing media devices.', err);
                 });
-
-
+        });
 
         muteButton.addEventListener('click', () => {
             isMuted = !isMuted;
-            localStream.getAudioTracks()[0].enabled = !isMuted; // كتم الصوت
-            muteButton.innerHTML = isMuted ? "🔊" : "🔇"; // تغيير الرمز
+            localStream.getAudioTracks()[0].enabled = !isMuted;
+            muteButton.innerHTML = isMuted ? "🔊" : "🔇";
         });
 
         endCallButton.addEventListener('click', () => {
-            localStream.getTracks().forEach(track => track.stop()); // إيقاف جميع المسارات
-            videoCallContainer.style.display = 'none'; // إخفاء واجهة المكالمة
+            localStream.getTracks().forEach(track => track.stop());
+            videoCallContainer.style.display = 'none';
+            window.location.href = "/"; // العودة إلى صفحة الدردشة
         });
 
         videoButton.addEventListener('click', () => {
             isVideoStopped = !isVideoStopped;
-            localStream.getVideoTracks()[0].enabled = !isVideoStopped; // إيقاف الفيديو
-            videoButton.innerHTML = isVideoStopped ? "📹" : "📷"; // تغيير الرمز
+            localStream.getVideoTracks()[0].enabled = !isVideoStopped;
+            videoButton.innerHTML = isVideoStopped ? "📹" : "📷";
         });
     </script>
 </body>
