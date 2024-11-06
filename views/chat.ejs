@@ -6,19 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
-
 </head>
 <body>
-
-  
-
-
-
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
     <input type="text" value="<%=my_id%>" name="myid" id="myid">
     <input type="text" value="<%=id%>" name="frid_id" id="idfrend">
-    <button onclick="insert()"> إرسال</button>
+    <button onclick="insert()">إرسال</button>
 
     <% if (resu.length > 0) { %>
         <% resu.forEach(resul => { %>
@@ -48,49 +42,23 @@
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
         const socket = io();
-        let nam = document.getElementById('nam').value;
-        let myid = document.getElementById('myid').value;
-        let idfrend = document.getElementById('idfrend').value;
-      let localVideo = document.getElementById('localVideo');
-     let remoteVideo = document.getElementById('remoteVideo');
-  let contt = document.getElementById('meet-area');
-       let r = document.getElementById('ng');
-        socket.on('data', (data) => {
-            const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-            table.innerHTML = '';
-            data.forEach((row) => {
-                if (row.myid === idfrend && row.frid_id === myid) {
-                    const tr = document.createElement('tr');
-                    Object.values(row).forEach((value) => {
-                        const td = document.createElement('td');
-                        td.textContent = value;
-                        tr.appendChild(td);
-                    });
-                    table.appendChild(tr);
-                }
-            });
-        });
-
         let peer = new Peer();
         let peerid = null;
 
         peer.on('open', id => {
             console.log('me', id);
-           
- peerid =id;
+            peerid = id;
         });
 
         function insert() {
             let myid = {
                 myid: peerid,
             };
-  let deta={
-            nam :document.getElementById('nam').value
- 
-          };
+            let deta = {
+                nam: document.getElementById('nam').value
+            };
             socket.emit('reqorst', myid);
-  socket.emit('url', deta);
-
+            socket.emit('url', deta);
         }
 
         socket.on('getpeerid', () => {
@@ -102,34 +70,30 @@
 
         socket.on('reccadd', id => {
             console.log(id);
- sessionStorage.setItem('FRpeerId', id);
- sessionStorage.setItem('MYpeerId',peerid);
-  window.location.href = "/call";
-        
-        })
-     
- socket.on('urls',(deta) => {
-  
-      r.innerHTML=`
-        <div class="video-call-message" >
-    <p>مكالمة فيديو واردة...</p>
-    <p>${deta.nam}</p>
-    <div class="video-call-buttons">
-      <button class="answer" onclick="displayMedia()">رد</button>
-      <button class="decline">رفض</button>
-    </div>
-  </div>
+            sessionStorage.setItem('FRpeerId', id);
+            sessionStorage.setItem('MYpeerId', peerid);
+            window.location.href = "/call";
+        });
 
-      `;
-    setTimeout(() => {
-           r.style.display = 'none';
-        }, 30000);
+        socket.on('urls', (deta) => {
+            document.getElementById('ng').innerHTML = `
+                <div class="video-call-message">
+                    <p>مكالمة فيديو واردة...</p>
+                    <p>${deta.nam}</p>
+                    <div class="video-call-buttons">
+                        <button class="answer" onclick="displayMedia()">رد</button>
+                        <button class="decline">رفض</button>
+                    </div>
+                </div>
+            `;
+            setTimeout(() => {
+                document.getElementById('ng').style.display = 'none';
+            }, 30000);
+        });
 
-    }); 
-function displayMedia() {
-   window.location.href ="/call";
-}
-  
+        function displayMedia() {
+            window.location.href = "/call";
+        }
     </script>
 </body>
 </html>
