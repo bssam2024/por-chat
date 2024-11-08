@@ -45,10 +45,10 @@ io.on('connection', (socket) => {
         });
       
     });
-   socket.on('callNotification', (data) => {
+   socket.on('callNotification', (deta) => {
         console.log(`Calling ${data.to} from ${data.from}`);
         // إرسال إشعار للمستخدم المستقبل
-        socket.to(data.to).emit('urls', { nam: data.name, from: data.from });
+        socket.to(data.to).emit('urls',deta);
     });
     /*
     socket.on('reqorst', myid => {
