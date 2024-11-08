@@ -57,12 +57,14 @@ let idfrend = document.getElementById('idfrend').value;
                 myid: peerid,
             };
             let deta = {
-                nam: document.getElementById('nam').value
+                nam: document.getElementById('nam').value,
+                to: document.getElementById('idfrend').value, 
+                from: peerid, 
             };
             socket.emit('reqorst', myid);
          
             // إرسال إشعار للمستقبل
-            socket.emit('callNotification', { to: document.getElementById('idfrend').value, from: peerid, name: deta.nam });
+            socket.emit('callNotification', deta);
         }
 
         socket.on('getpeerid', () => {
@@ -79,13 +81,13 @@ let idfrend = document.getElementById('idfrend').value;
             window.location.href = "/call";
         });
 
-        socket.on('urls', (nsds) => {
+        socket.on('urls', (deta) => {
             document.getElementById('ng').innerHTML = `
                 <div class="video-call-message">
                     <p>مكالمة فيديو واردة...</p>
-                    <p>${nsds.nam}</p>
+                    <p>${deta.nam}</p>
                     <div class="video-call-buttons">
-                        <button class="answer" onclick="displayMedia('${nsds.from}')">رد</button>
+                        <button class="answer" onclick="displayMedia('${deta.from}')">رد</button>
                         <button class="decline">رفض</button>
                     </div>
                 </div>
