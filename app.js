@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
       
     });
    socket.on('callNotification', (deta) => {
-        console.log(`Calling ${data.to} from ${data.from}`);
+        console.log(`Calling ${deta.to} from ${deta.from}`);
         // إرسال إشعار للمستخدم المستقبل
         socket.to(data.to).emit('urls',deta);
     });
