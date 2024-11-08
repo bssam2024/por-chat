@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكالمة فيديو باستخدام PeerJS</title>
     <link rel="stylesheet" href="/styles.css">
+  
 </head>
 <body>
+
+
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
     <input type="text" value="<%=my_id%>" name="myid" id="myid">
@@ -87,7 +90,7 @@ let idfrend = document.getElementById('idfrend').value;
                     <p>مكالمة فيديو واردة...</p>
                     <p>${deta.nam}</p>
                     <div class="video-call-buttons">
-                        <button class="answer" onclick="displayMedia('${deta.from}')">رد</button>
+                        <button id="rd" class="answer" onclick="displayMedia('${deta.from}')">رد</button>
                         <button class="decline">رفض</button>
                     </div>
                 </div>
