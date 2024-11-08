@@ -77,7 +77,7 @@ let idfrend = document.getElementById('idfrend').value;
         socket.on('reccadd', id => {
             console.log(id);
             sessionStorage.setItem('FRpeerId', id);
-            sessionStorage.setItem('MYpeerId', peerid);
+    
             window.location.href = "/call";
         });
 
@@ -94,8 +94,8 @@ let idfrend = document.getElementById('idfrend').value;
             `;
         });
 
-        function displayMedia(friendId) {
-            sessionStorage.setItem('FRpeerId', friendId);
+        function displayMedia(MYpeerId) {
+           
          sessionStorage.setItem('MYpeerId', peerid);
             window.location.href = "/call";
         }
