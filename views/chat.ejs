@@ -80,7 +80,7 @@ let idfrend = document.getElementById('idfrend').value;
         socket.on('reccadd', id => {
             console.log(id);
             sessionStorage.setItem('FRpeerId', id);
-    
+     sessionStorage.setItem('MYpeerId', peerid);
             window.location.href = "/call";
         });
 
@@ -90,17 +90,17 @@ let idfrend = document.getElementById('idfrend').value;
                     <p>مكالمة فيديو واردة...</p>
                     <p>${deta.nam}</p>
                     <div class="video-call-buttons">
-                        <button id="rd" class="answer" onclick="displayMedia('${deta.from}')">رد</button>
+                        <button id="rd" class="answer">رد</button>
                         <button class="decline">رفض</button>
                     </div>
                 </div>
             `;
         });
-
-        function displayMedia(MYpeerId) {
-         sessionStorage.setItem('MYpeerId', peerid);
-            window.location.href = "/call";
-        }
+ const button = document.getElementById('rd');
+        button.addEventListener('click', () => {
+            sessionStorage.setItem('btn', 'true');
+            window.location.href = '/call'; // الانتقال إلى صفحة المكالمة
+        });
     </script>
 </body>
 </html>
