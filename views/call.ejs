@@ -141,6 +141,7 @@ if(btn){
                     call.on('stream', remoteStream => {
                         remoteVideo.srcObject = remoteStream;
                     });
+
 }
                 })
                 .catch(err => {
@@ -157,6 +158,7 @@ if(btn){
         endCallButton.addEventListener('click', () => {
             sessionStorage.removeItem('MYpeerId');
             sessionStorage.removeItem('FRpeerId');
+   sessionStorage.removeItem('btn');
             window.location.href = "/"; // العودة إلى الصفحة الرئيسية أو أي صفحة أخرى
         });
     </script>
