@@ -46,6 +46,7 @@
   let nam = document.getElementById('nam').value;
 let myid = document.getElementById('myid').value;
 let idfrend = document.getElementById('idfrend').value;
+let button = document.getElementById('rd');
         const socket = io();
         let peer = new Peer();
         let peerid = null;
@@ -96,7 +97,7 @@ let idfrend = document.getElementById('idfrend').value;
                 </div>
             `;
         });
- const button = document.getElementById('rd');
+
         button.addEventListener('click', () => {
             sessionStorage.setItem('btn', 'true');
                   window.location.href = "/call";
