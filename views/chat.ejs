@@ -98,7 +98,7 @@ let idfrend = document.getElementById('idfrend').value;
             `;
     let button = document.getElementById('rd');
     button.addEventListener('click', () => {
-     
+       sessionStorage.setItem('FRpeerId', deta.from); 
         window.location.href = "/call";
     });
         });
