@@ -19,9 +19,12 @@
             <div class="sidebar-header">
                 <h2>المحادثات</h2>
             </div>
-            <div class="contact">جهة الاتصال 1</div>
-            <div class="contact">جهة الاتصال 2</div>
-            <div class="contact">جهة الاتصال 3</div>
+ <% results.forEach(resul=>{ %>
+   
+    <div class="contact"><%=resul.id%><a href="/chat/<%=resul.id%>"><%=resul.emil%></a>  </div>
+    <%})%>
+          
+         
         </div>
         <div class="chat-area">
             <div class="header">
