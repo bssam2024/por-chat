@@ -113,7 +113,11 @@ let idfrend = document.getElementById('idfrend').value;
         window.location.href = "/call";
     });
         });
+       const toggleSidebarButton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
 
+        toggleSidebarButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open'); // إضافة أو إزالة الفئة 'open'
     </script>
 </body>
 </html>
