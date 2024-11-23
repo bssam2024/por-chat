@@ -167,7 +167,7 @@ app.post('/login', (req, res) => {
         if (results.length > 0 && bcrypt.compareSync(password, results[0].pass1)) {
             req.session.userId = results[0].id;
             req.session.userEMIL = results[0].emil;
-            res.redirect('/hom');
+            res.redirect('/chat');
         } else {
             res.send('Invalid username or password');
         }
@@ -175,7 +175,7 @@ app.post('/login', (req, res) => {
 });
 
 // الصفحة الرئيسية
-app.get('/hom', (req, res,next) => {
+app.get('/chat', (req, res,next) => {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
