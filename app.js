@@ -158,7 +158,7 @@ app.get('/login',(req, res,next) => {
 });
 
 // معالجة تسجيل الدخول
-app.post('/login', (req, res) => {
+app.post('/login', (req, res,next) => {
   const { username, password } = req.body;
   //const hashedPassword = bcrypt.hashSync(password, 10);
 
