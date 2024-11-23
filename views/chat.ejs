@@ -9,38 +9,49 @@
   
 </head>
 <body>
-
-
     <div id="ng"></div>
     <input type="text" value="<%=namemy%>" name="nam" id="nam">
     <input type="text" value="<%=my_id%>" name="myid" id="myid">
     <input type="text" value="<%=id%>" name="frid_id" id="idfrend">
     <button onclick="insert()">إرسال</button>
+  <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>المحادثات</h2>
+            </div>
+            <div class="contact">جهة الاتصال 1</div>
+            <div class="contact">جهة الاتصال 2</div>
+            <div class="contact">جهة الاتصال 3</div>
+        </div>
+        <div class="chat-area">
+            <div class="header">
+                <button title="مكالمة صوتية">📞</button> <!-- أيقونة مكالمة صوتية -->
+                <button title="مكالمة فيديو">📹</button> <!-- أيقونة مكالمة فيديو -->
+                <button id="toggleSidebar" title="إظهار/إخفاء قائمة الأصدقاء">☰</button> <!-- زر لتبديل القائمة -->
+            </div>
+            <div class="messages">
+                <div class="message sent">
+                    <p>مرحبا! كيف حالك؟</p>
+                </div>
+                <div class="message received">
+                    <p>أنا بخير، شكرًا! وأنت؟</p>
+                </div>
+            </div>
+            <div class="media-controls">
+                <button title="تسجيل الصوت">🎤</button> <!-- أيقونة تسجيل الصوت -->
+                <button title="تحميل الصور">🖼️</button> <!-- أيقونة تحميل الصور -->
+                <button title="تحميل الفيديو">🎥</button> <!-- أيقونة تحميل الفيديو -->
+                <button title="تحميل الوسائط">📁</button> <!-- أيقونة تحميل الوسائط -->
+            </div>
+            <div class="input-area">
+                <input type="text" placeholder="اكتب رسالة...">
+                <button>إرسال</button>
+            </div>
+        </div>
+    </div>
 
-    <% if (resu.length > 0) { %>
-        <% resu.forEach(resul => { %>
-            <% if (resul.frid_id == my_id) { %>
-                <p><%= resul.nam %></p>
-                <p><%= resul.myid %></p>
-            <% } %>
-        <% }) %>
-    <% } else { %>
-        <p>لايوجد بيانات</p>
-    <% } %>
-    
-    <h1>Data from the Database</h1>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
-    <script src="/socket.io/socket.io.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script>
   let nam = document.getElementById('nam').value;
