@@ -19,7 +19,12 @@
             <div class="sidebar-header">
                 <h2>المحادثات</h2>
             </div>
-
+  <a href=""></a>
+<%=idusr%>
+    <% results.forEach(resul=>{ %>
+    <p><%=resul.id%></p>
+    <p> <a href="/chat/<%=resul.id%>"><%=resul.emil%></a></p>
+    <%})%>
 
           
          
