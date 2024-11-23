@@ -181,7 +181,7 @@ app.get('/chat', (req, res,next) => {
     }
     db.query('SELECT id,emil FROM usr1 ', (err, results) => {
         if (err) return res.send('Error: ' + err);
-    res.render('hom',{
+    res.render('chat',{
       results,
       idusr:req.session.userId
     });
